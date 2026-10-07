@@ -1,69 +1,169 @@
-import Image from "next/image";
+import {
+  Container,
+  Button,
+  Badge,
+  SectionHeading,
+  Card,
+  Stat,
+  Sparkline,
+} from "@/components/ui";
+import CycleCalendar from "@/components/CycleCalendar";
+import { cycle, progress } from "@/data/cycle";
+import { workout } from "@/data/exercises";
+
+const roadmap = [
+  [
+    "Available concept",
+    ["Tracking", "Fitness", "Trainer experience", "Progress"],
+  ],
+  ["Coming next", ["Nutrition", "Professional care", "Live trainer sessions"]],
+  ["Future", ["AI", "Community", "Wearables", "Advanced personalization"]],
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className="py-14 md:py-24">
+        <Container className="grid items-center gap-12 md:grid-cols-[1.1fr_1fr]">
+          <div className="rise">
+            <p className="mb-4 text-xs uppercase tracking-[0.25em] text-[#5E7366]">
+              PCOS Care
+            </p>
+            <h1 className="serif text-5xl leading-[1.05] md:text-7xl">
+              A better way to understand your PCOS journey.
+            </h1>
+            <p className="mt-6 max-w-lg text-lg text-[#1F2421]/70">
+              PCOS Care brings cycle tracking, symptom awareness, movement and
+              personal support into one thoughtful wellness experience.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/demo">Explore the platform</Button>
+              <Button href="/how-it-works" variant="ghost">
+                See what’s inside
+              </Button>
+            </div>
+          </div>
+          <div
+            className="relative grid grid-cols-2 gap-3"
+            aria-label="Example app screens"
+          >
+            <Card className="col-span-2 md:translate-x-6">
+              <div className="flex justify-between">
+                <Badge>Example</Badge>
+                <span className="text-xs">Cycle</span>
+              </div>
+              <p className="serif mt-3 text-4xl">Day {cycle.day}</p>
+              <p className="text-sm text-[#1F2421]/60">
+                Next period: {cycle.nextPeriod}
+              </p>
+            </Card>
+            <Card>
+              <p className="text-xs uppercase tracking-wider text-[#1F2421]/50">
+                Today’s check-in
+              </p>
+              <p className="mt-2 text-sm">Energy 7/10 · Stress 4/10</p>
+            </Card>
+            <Card>
+              <p className="text-xs uppercase tracking-wider text-[#1F2421]/50">
+                Sleep
+              </p>
+              <Sparkline
+                data={progress.sleep}
+                label="Sleep trend, example data"
+              />
+            </Card>
+            <Card className="col-span-2 bg-[#1F2421] text-[#F5F1EA] md:-translate-x-4">
+              <p className="text-xs uppercase tracking-wider opacity-60">
+                Workout
+              </p>
+              <p className="serif text-2xl">{workout.title}</p>
+              <p className="text-sm opacity-70">
+                {workout.minutes} min · {workout.count} exercises ·{" "}
+                {workout.place}
+              </p>
+            </Card>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-y border-[#1F2421]/10 py-6">
+        <Container className="flex flex-wrap items-center justify-between gap-4">
+          <p className="serif text-lg">
+            Built around your everyday experience — not just your diagnosis.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <p className="text-sm text-[#1F2421]/60">
+            Cycle · Symptoms · Movement · Progress · Support
+          </p>
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="One place"
+            title="Your health is more than a calendar."
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            PCOS can touch many parts of everyday life — from cycle and energy
+            to sleep, movement and mood.
+          </SectionHeading>
+          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 serif text-4xl md:text-6xl">
+            {["Cycle", "Symptoms", "Energy", "Sleep", "Movement", "Mood"].map(
+              (w, i) => (
+                <span
+                  key={w}
+                  className={i % 2 ? "text-[#B5573B] md:translate-y-4" : ""}
+                >
+                  {w}
+                </span>
+              )
+            )}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-white/50 py-20">
+        <Container className="grid gap-12 md:grid-cols-2">
+          <div>
+            <SectionHeading
+              eyebrow="Tracking"
+              title="Your cycle, understood in context."
+            >
+              Keep track of cycles, symptoms and daily wellbeing over time.
+            </SectionHeading>
+            <div className="mt-8 flex gap-8">
+              <Stat label="Cycle day" value={String(cycle.day)} />
+              <Stat label="Average" value={`${cycle.avg}d`} />
+            </div>
+            <div className="mt-6">
+              <Badge>Example view</Badge>
+            </div>
+          </div>
+          <CycleCalendar />
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Roadmap"
+            title="What exists, and what’s next."
+          />
+          <div className="mt-10 grid gap-8 md:grid-cols-3">
+            {roadmap.map(([h, items]) => (
+              <div key={h} className="border-t border-[#1F2421] pt-4">
+                <Badge tone={h === "Available concept" ? "soft" : "future"}>
+                  {h}
+                </Badge>
+                <ul className="mt-4 space-y-2 serif text-xl">
+                  {items.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
